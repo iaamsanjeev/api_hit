@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:api_hitt/api_whole_json.dart';
 import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 import 'package:http/http.dart' as http;
@@ -37,7 +38,6 @@ class _ApiScreenState extends State<ApiScreen> {
   @override
   void initState() {
     fetchData();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -46,45 +46,72 @@ class _ApiScreenState extends State<ApiScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("api screen"),
+        actions: [
+          InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ApiWholeJson()));
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(Icons.arrow_circle_right),
+              ))
+        ],
       ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: productList.length,
-              itemBuilder: (_, index) {
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.amber[100],
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    children: [
-                      Image.network(
-                        productList[index]['images'][0],
-                        width: 100,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(productList[index]['title']),
-                          // Text(productList[index]['description']),
-                          Text(productList[index]['tags'][0]),
-                          Text(productList[index]['brand']),
-                          Text(productList[index]['category']),
-                          Text(
-                              "${(productList[index]['price'] as num).toDouble()}"),
-                          Text("${productList[index]['dimensions']}"),
-                          Text(productList[index]['warrantyInformation']),
-                          Text(productList[index]['shippingInformation']),
-                          // Text(productList[index]['meta'].toString()),
-                          // Text(productList[index]['reviews'][0].toString())
-                        ],
-                      ),
-                    ],
+          : Container(
+              // padding: EdgeInsets.only(left: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Products",
+                    style: TextStyle(color: Colors.black),
                   ),
-                );
-              }),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: productList.length,
+                        itemBuilder: (_, index) {
+                          return Container(
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Colors.amber[100],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  productList[index]['images'][0],
+                                  width: 100,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(productList[index]['title']),
+                                    // Text(productList[index]['description']),
+                                    Text(productList[index]['tags'][0]),
+                                    Text(productList[index]['brand']),
+                                    Text(productList[index]['category']),
+                                    Text(
+                                        "${(productList[index]['price'] as num).toDouble()}"),
+                                    Text("${productList[index]['dimensions']}"),
+                                    Text(productList[index]
+                                        ['warrantyInformation']),
+                                    Text(productList[index]
+                                        ['shippingInformation']),
+                                    // Text(productList[index]['meta'].toString()),
+                                    // Text(productList[index]['reviews'][0].toString())
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                ],
+              ),
+            ),
     );
   }
 }
