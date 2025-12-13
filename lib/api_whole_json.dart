@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_hitt/api_hit_futurebuilder.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,6 +44,19 @@ class _ApiWholeJsonState extends State<ApiWholeJson> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Api Whole Json "),
+          actions: [
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ApiHitFutureBuilder()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(Icons.arrow_circle_right),
+                ))
+          ],
         ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())

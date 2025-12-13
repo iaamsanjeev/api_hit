@@ -101,7 +101,9 @@ class _ApiScreenState extends State<ApiScreen> {
                                     Text(productList[index]
                                         ['shippingInformation']),
                                     // Text(productList[index]['meta'].toString()),
-                                    // Text(productList[index]['reviews'][0].toString())
+                                    Text(productList[index]['reviews'][1]
+                                            ['comment']
+                                        .toString())
                                   ],
                                 ),
                               ],
